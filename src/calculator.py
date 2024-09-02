@@ -4,9 +4,26 @@ def add(numbers: str) -> int:
     if not numbers:
         return 0
 
-    # Replace newlines with commas and then split the string by commas
-    numbers = numbers.replace("\n", ",")
-    num_list = numbers.split(",")
+    # Check if the input string contains a custom delimiter
+    if numbers.startswith("//"):
+        # Find the index of the first newline character
+        delimiter_index = numbers.find("\n")
+        # print(delimiter_index, "delimiter_index")
+        if delimiter_index == -1:
+            raise ValueError("Delimiter line not properly formatted.")
+
+        # Extract the delimiter from the line following "//"
+        delimiter = numbers[2:delimiter_index]
+
+        # Extract the numbers part from the string
+        numbers = numbers[delimiter_index + 1 :]
+    else:
+        # Default delimiter is comma
+        delimiter = ","
+
+    # Replace the custom delimiter with commas
+    numbers = numbers.replace("\n", delimiter)
+    num_list = numbers.split(delimiter)
 
     # Convert the list of strings to a list of integers
     try:
