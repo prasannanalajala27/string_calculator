@@ -4,12 +4,13 @@ def add(numbers: str) -> int:
     if not numbers:
         return 0
 
-    # Split the input string by commas and strip any extra whitespace
+    # Replace newlines with commas and then split the string by commas
+    numbers = numbers.replace("\n", ",")
     num_list = numbers.split(",")
 
     # Convert the list of strings to a list of integers
     try:
-        int_list = [int(num.strip()) for num in num_list]
+        int_list = [int(num.strip()) for num in num_list if num.strip()]
     except ValueError:
         raise ValueError("The input string contains non-numeric values.")
 
