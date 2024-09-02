@@ -8,15 +8,16 @@ def add(numbers: str) -> int:
     if numbers.startswith("//"):
         # Find the index of the first newline character
         delimiter_index = numbers.find("\n")
-        # print(delimiter_index, "delimiter_index")
         if delimiter_index == -1:
-            raise ValueError("Delimiter line not properly formatted.")
+            raise ValueError("string not properly formatted.")
 
         # Extract the delimiter from the line following "//"
         delimiter = numbers[2:delimiter_index]
-
         # Extract the numbers part from the string
         numbers = numbers[delimiter_index + 1 :]
+        # check string numberpart properly formatted/contains delimeter
+        if numbers.find(delimiter) == -1:
+            return 0
     else:
         # Default delimiter is comma
         delimiter = ","

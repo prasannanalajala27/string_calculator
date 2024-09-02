@@ -28,6 +28,9 @@ class TestStringCalculator(unittest.TestCase):
     def test_custom_delimiter_pipe(self):
         self.assertEqual(add("//|\n1|2|3|4"), 10)
 
+    def test_custom_delimiter_multiplechar(self):
+        self.assertEqual(add("//**\n1|2|3|4"), 0)
+
 
 if __name__ == "__main__":
     unittest.main()
