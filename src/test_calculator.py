@@ -31,6 +31,16 @@ class TestStringCalculator(unittest.TestCase):
     def test_custom_delimiter_multiplechar(self):
         self.assertEqual(add("//**\n1|2|3|4"), 0)
 
+    def test_negative_number(self):
+        with self.assertRaises(Exception) as context:
+            add("//;\n1;-2")
+        self.assertEqual(str(context.exception), "Negative numbers not allowed: -2")
+
+    def test_multiple_negative_numbers(self):
+        with self.assertRaises(Exception) as context:
+            add("//***\n1***2***-3***-4")
+        self.assertEqual(str(context.exception), "Negative numbers not allowed: -3, -4")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -26,11 +26,24 @@ def add(numbers: str) -> int:
     numbers = numbers.replace("\n", delimiter)
     num_list = numbers.split(delimiter)
 
-    # Convert the list of strings to a list of integers
-    try:
-        int_list = [int(num.strip()) for num in num_list if num.strip()]
-    except ValueError:
-        raise ValueError("The input string contains non-numeric values.")
+    negative_numbers = []
+    valid_numbers = []
+    for num in num_list:
+        stripped_num = num.strip()
+        if stripped_num:  # Ensure the substring is not empty
+            try:
+                value = int(stripped_num)
+                if value < 0:
+                    negative_numbers.append(value)
+                valid_numbers.append(value)
+            except ValueError:
+                raise ValueError("The input string contains non-numeric values.")
+
+    # Raise an exception if there are negative numbers
+    if len(negative_numbers):
+        negative_str = ", ".join(map(str, negative_numbers))
+        print(negative_str, "negative_str")
+        raise ValueError(f"Negative numbers not allowed: {negative_str}")
 
     # Return the sum of the integers
-    return sum(int_list)
+    return sum(valid_numbers)
